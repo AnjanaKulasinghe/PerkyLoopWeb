@@ -326,6 +326,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     storeButtons.forEach(button => {
         button.addEventListener('click', function(e) {
+            // Check if it's a coming-soon button
+            if (this.classList.contains('coming-soon')) {
+                e.preventDefault();
+                showComingSoonToast();
+                return;
+            }
+
             const ripple = document.createElement('span');
             const rect = this.getBoundingClientRect();
             const size = Math.max(rect.width, rect.height);
@@ -517,9 +524,88 @@ document.addEventListener('DOMContentLoaded', function() {
     createBackToTop();
     
     // ===== Console Message =====
-    console.log('%c🎁 PerkyLoop ', 'font-size: 24px; font-weight: bold; background: linear-gradient(135deg, #f97316 0%, #ec4899 50%, #8b5cf6 100%); color: white; padding: 10px 20px; border-radius: 8px;');
+    console.log('%c PerkyLoop ', 'font-size: 24px; font-weight: bold; background: linear-gradient(135deg, #f97316 0%, #ec4899 50%, #8b5cf6 100%); color: white; padding: 10px 20px; border-radius: 8px;');
     console.log('%cDigital Loyalty Rewards Made for Kiwi Businesses', 'font-size: 14px; color: #6b7280; padding: 5px 0;');
     console.log('%cInterested in working with us? Email: hello@perkyloop.com', 'font-size: 12px; color: #8b5cf6; padding: 5px 0;');
+    
+    // ===== Coming Soon Toast Function =====
+    function showComingSoonToast() {
+        // Remove existing toast if any
+        const existingToast = document.querySelector('.coming-soon-toast');
+        if (existingToast) existingToast.remove();
+
+        const toast = document.createElement('div');
+        toast.className = 'coming-soon-toast';
+        toast.innerHTML = `
+            <div class="toast-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+            </div>
+            <div class="toast-body">
+                <div class="toast-title">Coming Very Soon!</div>
+                <div class="toast-text">The PerkyLoop app is currently in the final stages of review. Stay tuned for our App Store and Google Play launch!</div>
+            </div>
+        `;
+
+        // Style the toast
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 2000;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            max-width: 400px;
+            width: 90%;
+        `;
+
+        // Add additional styles for toast content
+        const titleStyle = toast.querySelector('.toast-title');
+        titleStyle.style.cssText = `
+            font-weight: 700;
+            color: #1f2937;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+        `;
+
+        const textStyle = toast.querySelector('.toast-text');
+        textStyle.style.cssText = `
+            font-size: 0.9rem;
+            color: #4b5563;
+            line-height: 1.4;
+        `;
+
+        const iconStyle = toast.querySelector('.toast-icon');
+        iconStyle.style.cssText = `
+            font-size: 1.5rem;
+        `;
+
+        document.body.appendChild(toast);
+
+        // Animate in
+        requestAnimationFrame(() => {
+            toast.style.transform = 'translateX(-50%) translateY(0)';
+        });
+
+        // Auto remove
+        setTimeout(() => {
+            toast.style.transform = 'translateX(-50%) translateY(100px)';
+            toast.style.opacity = '0';
+            setTimeout(() => toast.remove(), 500);
+        }, 5000);
+    }
     
 });
 

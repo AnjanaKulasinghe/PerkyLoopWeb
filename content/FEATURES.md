@@ -4,7 +4,7 @@
 
 ---
 
-## 🎯 Customer Features
+## Customer Features
 
 ### 1. Digital Loyalty Cards
 

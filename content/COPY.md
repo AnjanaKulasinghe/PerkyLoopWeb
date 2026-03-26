@@ -6,7 +6,7 @@
 
 ---
 
-## 🏠 Home Page
+## Home Page
 
 ### Hero Section
 
@@ -28,9 +28,9 @@ earn stamps, and get rewarded—all from your phone.
 
 ### Hero Stats Bar
 ```
-• 1000+ Active Shops
-• 50,000+ Happy Customers
-• 100% Free to Join
+• 10+ Pilot Partners
+• 200+ Early Adopters
+• 100% Free Pilot
 ```
 
 ---
@@ -109,22 +109,19 @@ Loved by Customers & Businesses
 
 **Customer Testimonial 1:**
 ```
-"No more lost punch cards! I love having all my loyalty programs in one place. 
-Already redeemed 3 free coffees this month!" 
+"Being part of the PerkyLoop pilot has been so easy. No more paper cards in my wallet, and I love seeing my points grow instantly." 
 — Sarah M., Auckland
 ```
 
 **Customer Testimonial 2:**
 ```
-"So much easier than carrying paper cards. The app is super fast and I can see 
-exactly how close I am to my next reward."
+"The early access version is super fast. It's great to be part of the first group of shops testing this in Wellington."
 — James K., Wellington
 ```
 
 **Business Testimonial 1:**
 ```
-"Our customer retention increased by 40% since switching to PerkyLoop. 
-The analytics help us understand our regulars better."
+"Joining the pilot run was the best decision. We've seen a real boost in regular visits even during this early testing phase."
 — Maria, Café Owner
 ```
 
@@ -142,13 +139,14 @@ Ready to Ditch Paper Loyalty Cards?
 Join thousands of Kiwis earning rewards at their favourite local shops.
 ```
 
-**Buttons:**
+**Buttons (Coming Soon):**
 - "Download on App Store"
 - "Get it on Google Play"
+*(Note: Buttons currently display a "Coming Soon" notification until builds are approved)*
 
 ---
 
-## 💼 For Business Page
+## For Business Page
 
 ### Hero Section
 
@@ -214,16 +212,16 @@ Everything You Need to Succeed
 ```
 
 **Feature List:**
-- ✅ Custom loyalty programmes (buy 5 get 1 free, points-based, or both)
-- ✅ QR code generation for easy customer sign-up
-- ✅ Real-time dashboard with customer insights
-- ✅ Automated reward tracking (no manual punch cards!)
-- ✅ Customer activity log and visit history
-- ✅ Promotional posts to engage your members
-- ✅ Staff management with permission controls
-- ✅ Location details and shop profile customisation
-- ✅ Export data for your records
-- ✅ No expensive hardware required—works with any smartphone
+- Custom loyalty programmes (buy 5 get 1 free, points-based, or both)
+- QR code generation for easy customer sign-up
+- Real-time dashboard with customer insights
+- Automated reward tracking (no manual punch cards!)
+- Customer activity log and visit history
+- Promotional posts to engage your members
+- Staff management with permission controls
+- Location details and shop profile customisation
+- Export data for your records
+- No expensive hardware required—works with any smartphone
 
 ---
 
@@ -245,32 +243,32 @@ Simple, Transparent Pricing
 - All core features
 
 **Starter Plan:**
-**Price:** $29/month  
-**Perfect for:** Growing cafés, small shops  
+**Price:** $4.99/month (NZD)
+**Perfect for:** Small businesses getting started
 **Includes:**
-- Up to 250 active members
-- Unlimited programmes
-- Advanced analytics
-- Promotional posts
-- Priority support
-- Custom branding
+- Up to 3 staff members
+- Unlimited customers
+- Unlimited loyalty programmes
+- QR scanning
+- 1 promotion announcement per week
+- Email support
 
-**Professional Plan:**
-**Price:** $79/month  
-**Perfect for:** Established businesses, chains  
+**Growth Plan:**
+**Price:** $9.99/month (NZD)
+**Perfect for:** Growing businesses
 **Includes:**
-- Unlimited active members
-- Multiple locations
-- Advanced analytics & insights
-- Promotional posts
-- Dedicated support
-- API access
-- White-label options
+- Up to 10 staff members
+- Unlimited customers
+- Unlimited loyalty programmes
+- QR scanning
+- 2 promotion announcements per week
+- Priority email support
+- Advanced analytics
 
 **Enterprise:**
-**Price:** Custom  
-**Perfect for:** Large chains, franchises  
-**Includes:** Everything in Pro plus custom features, SLA, dedicated account manager
+**Price:** Custom
+**Perfect for:** Large chains, franchises
+**Includes:** Everything in Growth plus custom features, SLA, dedicated account manager
 
 **CTA:** "Start Your Free Trial"
 
@@ -335,7 +333,7 @@ Start building customer loyalty today. No credit card required.
 
 ---
 
-## 📄 Privacy Policy Page
+## Privacy Policy Page
 
 **Headline:**
 ```
@@ -372,7 +370,7 @@ Address: [Your Auckland Address]
 
 ---
 
-## 📋 Terms of Service Page
+## Terms of Service Page
 
 **Headline:**
 ```
@@ -402,7 +400,7 @@ by these Terms of Service. Please read them carefully.
 
 ---
 
-## 📞 Contact Page
+## Contact Page
 
 **Headline:**
 ```
@@ -437,13 +435,13 @@ Sunday: Closed
 
 ---
 
-## 🔐 Email Templates (Auth Handlers)
+## Email Templates (Auth Handlers)
 
 ### Email Confirmation Page
 
 **Headline:**
 ```
-Email Confirmed! 🎉
+Email Confirmed!
 ```
 
 **Body:**
@@ -490,7 +488,7 @@ contact support if the problem persists.
 
 ---
 
-## 🎯 SEO Meta Descriptions
+## SEO Meta Descriptions
 
 **Home Page:**
 ```
@@ -512,7 +510,7 @@ digital punch card, loyalty programme software, small business loyalty nz
 
 ---
 
-## 📱 App Store Copy
+## App Store Copy
 
 ### App Name
 ```
