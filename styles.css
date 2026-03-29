@@ -1163,7 +1163,26 @@ button {
     }
     
     .hero-stats {
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        gap: var(--spacing-sm);
+        padding: var(--spacing-md);
+    }
+    
+    .stat {
+        flex: 1;
+    }
+    
+    .stat-number {
+        font-size: 1.25rem;
+    }
+    
+    .stat-label {
+        font-size: 0.7rem;
+    }
+    
+    .stat-divider {
+        height: 30px;
     }
     
     .phone-mockup {
@@ -2032,7 +2051,7 @@ section {
 
 /* ===== Gallery Showcase Section ===== */
 .gallery-discovery {
-    padding: var(--spacing-3xl) 0;
+    padding: var(--spacing-xl) 0;
 }
 
 .gallery-showcase {
@@ -2175,6 +2194,7 @@ section {
 .footer-section .logo {
     margin-bottom: var(--spacing-md);
     justify-content: center;
+    width: 100%;
 }
 
 .footer .logo-icon {
@@ -2228,6 +2248,18 @@ section {
     
     .footer-section {
         text-align: center;
+    }
+    
+    .footer-section .logo {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .footer .logo-icon {
+        height: 96px; /* Restored to original height since it's now centered correctly */
+        margin-bottom: var(--spacing-xs);
     }
 }
 
