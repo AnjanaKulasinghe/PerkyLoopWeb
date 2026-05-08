@@ -6,6 +6,15 @@ A modern, responsive marketing website for PerkyLoop - the digital loyalty card 
 
 ---
 
+## 📱 App Availability
+
+**🎉 PerkyLoop is now live on both major app stores!**
+
+- 🍎 **App Store**: [Download on iOS](https://apps.apple.com/nz/app/perkyloop/id6760283390)
+- 🤖 **Google Play**: [Download on Android](https://play.google.com/store/apps/details?id=nz.co.koungasolutions.perkyloop)
+
+---
+
 ## 🌟 Live Website
 
 **✅ Website is ready to deploy!**
