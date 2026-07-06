@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /download.html
+
+Sitemap: https://perkyloop.com/sitemap.xml

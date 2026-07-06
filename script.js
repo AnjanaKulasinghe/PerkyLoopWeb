@@ -1,16 +1,16 @@
 // PerkyLoop Website JavaScript
 
 // ===== Wait for DOM to be ready =====
-document.addEventListener('DOMContentLoaded', function() {
-    
+document.addEventListener('DOMContentLoaded', function () {
+
     // ===== Mobile Menu Toggle =====
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const mobileMenu = document.querySelector('.mobile-menu');
-    
+
     if (mobileMenuToggle && mobileMenu) {
-        mobileMenuToggle.addEventListener('click', function() {
+        mobileMenuToggle.addEventListener('click', function () {
             mobileMenu.classList.toggle('active');
-            
+
             // Animate hamburger
             const spans = this.querySelectorAll('span');
             if (mobileMenu.classList.contains('active')) {
@@ -23,11 +23,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 spans[2].style.transform = 'none';
             }
         });
-        
+
         // Close menu when clicking a link
         const mobileMenuLinks = mobileMenu.querySelectorAll('a');
         mobileMenuLinks.forEach(link => {
-            link.addEventListener('click', function() {
+            link.addEventListener('click', function () {
                 mobileMenu.classList.remove('active');
                 const spans = mobileMenuToggle.querySelectorAll('span');
                 spans[0].style.transform = 'none';
@@ -36,29 +36,29 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-    
+
     // ===== Smooth Scrolling for Anchor Links =====
     const anchorLinks = document.querySelectorAll('a[href^="#"]');
-    
+
     anchorLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
-            
+
             // Skip if it's just "#"
             if (href === '#') {
                 e.preventDefault();
                 return;
             }
-            
+
             const targetId = href.substring(1);
             const targetElement = document.getElementById(targetId);
-            
+
             if (targetElement) {
                 e.preventDefault();
-                
+
                 const navbarHeight = document.querySelector('.navbar').offsetHeight;
                 const targetPosition = targetElement.offsetTop - navbarHeight - 20;
-                
+
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
@@ -66,31 +66,31 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
+
     // ===== Navbar Scroll Effect =====
     let lastScroll = 0;
     const navbar = document.querySelector('.navbar');
-    
-    window.addEventListener('scroll', function() {
+
+    window.addEventListener('scroll', function () {
         const currentScroll = window.pageYOffset;
-        
+
         // Add shadow when scrolled
         if (currentScroll > 50) {
             navbar.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
         } else {
             navbar.style.boxShadow = 'none';
         }
-        
+
         lastScroll = currentScroll;
     });
-    
+
     // ===== Scroll Animations =====
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px'
     };
-    
-    const observer = new IntersectionObserver(function(entries, obs) {
+
+    const observer = new IntersectionObserver(function (entries, obs) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
@@ -99,51 +99,68 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }, observerOptions);
-    
+
     // Observe feature cards
     const featureCards = document.querySelectorAll('.feature-card, .benefit-card, .testimonial-card, .step, .pricing-card, .animate-on-scroll');
     featureCards.forEach((card, index) => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(30px)';
         // Reset index per section to avoid massive delays on large pages
-        const rowPosition = index % 3; 
+        const rowPosition = index % 3;
         card.style.transition = `all 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${rowPosition * 0.05}s`;
         observer.observe(card);
     });
-    
+
     // ===== FAQ Accordion =====
     const faqItems = document.querySelectorAll('.faq-item');
-    
+
     faqItems.forEach(item => {
         const question = item.querySelector('.faq-question');
-        
-        question.addEventListener('click', function() {
+
+        // Accessibility: make the question keyboard-operable
+        question.setAttribute('role', 'button');
+        question.setAttribute('tabindex', '0');
+        question.setAttribute('aria-expanded', item.classList.contains('active') ? 'true' : 'false');
+
+        const toggle = function () {
             const isActive = item.classList.contains('active');
-            
+
             // Close all other FAQs
             faqItems.forEach(otherItem => {
                 if (otherItem !== item) {
                     otherItem.classList.remove('active');
+                    const q = otherItem.querySelector('.faq-question');
+                    if (q) q.setAttribute('aria-expanded', 'false');
                 }
             });
-            
+
             // Toggle current FAQ
             if (isActive) {
                 item.classList.remove('active');
+                question.setAttribute('aria-expanded', 'false');
             } else {
                 item.classList.add('active');
+                question.setAttribute('aria-expanded', 'true');
+            }
+        };
+
+        question.addEventListener('click', toggle);
+        question.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggle();
             }
         });
     });
-    
+
     // ===== Stats Counter Animation =====
     const statNumbers = document.querySelectorAll('.stat-number');
-    
+
     const animateValue = (element, start, end, duration) => {
         const range = end - start;
         const increment = range / (duration / 16);
         let current = start;
-        
+
         const timer = setInterval(() => {
             current += increment;
             if (current >= end) {
@@ -154,15 +171,15 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, 16);
     };
-    
+
     // Observe stats for animation
-    const statsObserver = new IntersectionObserver(function(entries) {
+    const statsObserver = new IntersectionObserver(function (entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
                 entry.target.classList.add('counted');
                 const text = entry.target.textContent;
                 const number = parseInt(text.replace(/[^0-9]/g, ''));
-                
+
                 if (number) {
                     entry.target.textContent = '0';
                     animateValue(entry.target, 0, number, 2000);
@@ -170,120 +187,120 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }, { threshold: 0.5 });
-    
+
     statNumbers.forEach(stat => {
         statsObserver.observe(stat);
     });
-    
+
     // ===== Dashboard Stat Animation =====
     const dashboardStats = document.querySelectorAll('.dashboard-stat .stat-value');
-    
+
     dashboardStats.forEach(stat => {
         statsObserver.observe(stat);
     });
-    
+
     // ===== Parallax Effect for Hero Gradient =====
     const heroGradient = document.querySelector('.hero-gradient');
     const heroSection = document.querySelector('.hero');
-    
+
     if (heroGradient && heroSection) {
         // Mouse parallax effect
-        heroSection.addEventListener('mousemove', function(e) {
+        heroSection.addEventListener('mousemove', function (e) {
             const rect = this.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            
+
             const moveX = (x - rect.width / 2) / 50;
             const moveY = (y - rect.height / 2) / 50;
-            
+
             heroGradient.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
         });
-        
+
         // Scroll parallax
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             const scrolled = window.pageYOffset;
             const rate = scrolled * 0.5;
             heroGradient.style.transform = `translate3d(0, ${rate}px, 0)`;
         });
     }
-    
+
     // ===== Floating Shapes Parallax =====
     const shapes = document.querySelectorAll('.shape');
-    
+
     if (shapes.length > 0 && heroSection) {
-        heroSection.addEventListener('mousemove', function(e) {
+        heroSection.addEventListener('mousemove', function (e) {
             const rect = this.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            
+
             shapes.forEach((shape, index) => {
                 const speed = (index + 1) * 0.5;
                 const moveX = (x - rect.width / 2) / (100 / speed);
                 const moveY = (y - rect.height / 2) / (100 / speed);
-                
+
                 shape.style.transform = `translate(${moveX}px, ${moveY}px)`;
             });
         });
     }
-    
+
     // ===== Loyalty Card Animation =====
     const loyaltyCards = document.querySelectorAll('.loyalty-card');
-    
+
     loyaltyCards.forEach((card, index) => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(20px)';
-        
+
         setTimeout(() => {
             card.style.transition = 'all 0.5s ease';
             card.style.opacity = '1';
             card.style.transform = 'translateY(0)';
         }, 500 + (index * 200));
     });
-    
+
     // ===== 3D Phone Tilt Effect =====
     const phoneMockup = document.querySelector('.phone-mockup');
-    
+
     if (phoneMockup) {
-        phoneMockup.addEventListener('mousemove', function(e) {
+        phoneMockup.addEventListener('mousemove', function (e) {
             const rect = this.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            
+
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
-            
+
             const rotateX = (y - centerY) / 10;
             const rotateY = (centerX - x) / 10;
-            
+
             this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-20px)`;
         });
-        
-        phoneMockup.addEventListener('mouseleave', function() {
+
+        phoneMockup.addEventListener('mouseleave', function () {
             this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
         });
     }
-    
+
     // ===== Magnetic Button Effect =====
     const magneticButtons = document.querySelectorAll('.btn-primary, .btn-secondary');
-    
+
     magneticButtons.forEach(button => {
-        button.addEventListener('mousemove', function(e) {
+        button.addEventListener('mousemove', function (e) {
             const rect = this.getBoundingClientRect();
             const x = e.clientX - rect.left - rect.width / 2;
             const y = e.clientY - rect.top - rect.height / 2;
-            
+
             this.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px) scale(1.05)`;
         });
-        
-        button.addEventListener('mouseleave', function() {
+
+        button.addEventListener('mouseleave', function () {
             this.style.transform = 'translate(0, 0) scale(1)';
         });
     });
-    
+
     // ===== Chart Bars Animation =====
     const chartBars = document.querySelectorAll('.chart-bar');
-    
-    const chartObserver = new IntersectionObserver(function(entries) {
+
+    const chartObserver = new IntersectionObserver(function (entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const bars = entry.target.querySelectorAll('.chart-bar');
@@ -296,22 +313,22 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }, { threshold: 0.5 });
-    
+
     const chartContainer = document.querySelector('.dashboard-chart');
     if (chartContainer) {
         chartObserver.observe(chartContainer);
     }
-    
+
     // ===== Pricing Card Hover Effect =====
     const pricingCards = document.querySelectorAll('.pricing-card');
-    
+
     pricingCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
+        card.addEventListener('mouseenter', function () {
             // Scale up slightly
             this.style.transform = 'translateY(-8px) scale(1.02)';
         });
-        
-        card.addEventListener('mouseleave', function() {
+
+        card.addEventListener('mouseleave', function () {
             // Return to normal (unless it's featured)
             if (!this.classList.contains('pricing-featured')) {
                 this.style.transform = 'translateY(0) scale(1)';
@@ -320,12 +337,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
+
     // ===== Store Button Ripple Effect =====
     const storeButtons = document.querySelectorAll('.store-button, .btn-primary, .btn-secondary');
-    
+
     storeButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
+        button.addEventListener('click', function (e) {
             // Check if it's a coming-soon button
             if (this.classList.contains('coming-soon')) {
                 e.preventDefault();
@@ -338,7 +355,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const size = Math.max(rect.width, rect.height);
             const x = e.clientX - rect.left - size / 2;
             const y = e.clientY - rect.top - size / 2;
-            
+
             ripple.style.width = ripple.style.height = size + 'px';
             ripple.style.left = x + 'px';
             ripple.style.top = y + 'px';
@@ -348,17 +365,17 @@ document.addEventListener('DOMContentLoaded', function() {
             ripple.style.transform = 'scale(0)';
             ripple.style.animation = 'ripple 0.6s ease';
             ripple.style.pointerEvents = 'none';
-            
+
             this.style.position = 'relative';
             this.style.overflow = 'hidden';
             this.appendChild(ripple);
-            
+
             setTimeout(() => {
                 ripple.remove();
             }, 600);
         });
     });
-    
+
     // Add ripple animation to CSS
     const style = document.createElement('style');
     style.textContent = `
@@ -370,10 +387,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     `;
     document.head.appendChild(style);
-    
+
     // ===== Gradient Text Animation =====
     const gradientTexts = document.querySelectorAll('.gradient-text');
-    
+
     gradientTexts.forEach(text => {
         let hue = 0;
         setInterval(() => {
@@ -386,10 +403,10 @@ document.addEventListener('DOMContentLoaded', function() {
             text.style.backgroundImage = gradient;
         }, 100);
     });
-    
+
     // ===== Hero Spotlight Effect =====
     const heroSections = document.querySelectorAll('.hero');
-    
+
     heroSections.forEach(hero => {
         // Create spotlight element
         const spotlight = document.createElement('div');
@@ -406,21 +423,21 @@ document.addEventListener('DOMContentLoaded', function() {
             mix-blend-mode: screen;
         `;
         hero.appendChild(spotlight);
-        
+
         hero.addEventListener('mousemove', (e) => {
             const rect = hero.getBoundingClientRect();
             const x = e.clientX - rect.left - 300;
             const y = e.clientY - rect.top - 300;
-            
+
             spotlight.style.left = x + 'px';
             spotlight.style.top = y + 'px';
             spotlight.style.opacity = '1';
         });
-        
+
         hero.addEventListener('mouseleave', () => {
             spotlight.style.opacity = '0';
         });
-        
+
         // Add sparkle effects
         setInterval(() => {
             if (Math.random() > 0.7) {
@@ -428,14 +445,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, 500);
     });
-    
+
     // ===== Create Sparkle Function =====
     function createSparkle(container) {
         const sparkle = document.createElement('div');
         const size = Math.random() * 4 + 2;
         const x = Math.random() * container.offsetWidth;
         const y = Math.random() * (container.offsetHeight * 0.6);
-        
+
         sparkle.style.cssText = `
             position: absolute;
             width: ${size}px;
@@ -449,14 +466,14 @@ document.addEventListener('DOMContentLoaded', function() {
             box-shadow: 0 0 ${size * 2}px rgba(255, 255, 255, 0.8);
             animation: sparkleAnimation 1.5s ease-out forwards;
         `;
-        
+
         container.appendChild(sparkle);
-        
+
         setTimeout(() => {
             sparkle.remove();
         }, 1500);
     }
-    
+
     // Add sparkle animation to CSS
     const sparkleStyle = document.createElement('style');
     sparkleStyle.textContent = `
@@ -476,7 +493,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     `;
     document.head.appendChild(sparkleStyle);
-    
+
     // ===== Back to Top Button (Optional Enhancement) =====
     const createBackToTop = () => {
         const button = document.createElement('button');
@@ -500,14 +517,14 @@ document.addEventListener('DOMContentLoaded', function() {
             z-index: 1000;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         `;
-        
+
         button.addEventListener('click', () => {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
         });
-        
+
         window.addEventListener('scroll', () => {
             if (window.pageYOffset > 500) {
                 button.style.opacity = '1';
@@ -517,17 +534,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 button.style.visibility = 'hidden';
             }
         });
-        
+
         document.body.appendChild(button);
     };
-    
+
     createBackToTop();
-    
+
     // ===== Console Message =====
     console.log('%c PerkyLoop ', 'font-size: 24px; font-weight: bold; background: linear-gradient(135deg, #f97316 0%, #ec4899 50%, #8b5cf6 100%); color: white; padding: 10px 20px; border-radius: 8px;');
     console.log('%cDigital Loyalty Rewards Made for Kiwi Businesses', 'font-size: 14px; color: #6b7280; padding: 5px 0;');
     console.log('%cInterested in working with us? Email: hello@perkyloop.com', 'font-size: 12px; color: #8b5cf6; padding: 5px 0;');
-    
+
     // ===== Coming Soon Toast Function =====
     function showComingSoonToast() {
         // Remove existing toast if any
@@ -606,11 +623,11 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => toast.remove(), 500);
         }, 5000);
     }
-    
+
 });
 
 // ===== Add loading animation =====
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
     document.body.style.opacity = '0';
     setTimeout(() => {
         document.body.style.transition = 'opacity 0.5s ease';
@@ -619,22 +636,23 @@ window.addEventListener('load', function() {
 });
 
 // ===== Handle External Links =====
-document.addEventListener('click', function(e) {
-    if (e.target.tagName === 'A' && e.target.href && !e.target.href.startsWith(window.location.origin) && !e.target.href.startsWith('#')) {
+document.addEventListener('click', function (e) {
+    const link = e.target.closest('a');
+    if (link && link.href && !link.href.startsWith(window.location.origin) && !link.href.startsWith('#')) {
         // Open external links in new tab
-        e.target.setAttribute('target', '_blank');
-        e.target.setAttribute('rel', 'noopener noreferrer');
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener noreferrer');
     }
 });
 
 // ===== Form Validation (if forms are added later) =====
 const handleFormSubmit = (formElement) => {
-    formElement.addEventListener('submit', function(e) {
+    formElement.addEventListener('submit', function (e) {
         e.preventDefault();
-        
+
         // Add your form submission logic here
         console.log('Form submitted');
-        
+
         // Show success message
         const successMessage = document.createElement('div');
         successMessage.textContent = 'Thank you! We\'ll be in touch soon.';
@@ -650,9 +668,9 @@ const handleFormSubmit = (formElement) => {
             z-index: 1001;
             animation: slideIn 0.3s ease;
         `;
-        
+
         document.body.appendChild(successMessage);
-        
+
         setTimeout(() => {
             successMessage.style.animation = 'slideOut 0.3s ease';
             setTimeout(() => successMessage.remove(), 300);
