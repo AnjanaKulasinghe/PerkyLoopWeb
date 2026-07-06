@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Download the PerkyLoop app. Automatically sends you to the App Store or Google Play for your device.">
+    <meta name="robots" content="noindex">
+    <title>Download PerkyLoop</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --gradient-sunset: linear-gradient(135deg, #f97316 0%, #ec4899 50%, #8b5cf6 100%);
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-sunset);
+            color: #fff;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 440px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 40px 32px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .logo img {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+        }
+
+        .logo-text {
+            font-family: var(--font-heading);
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        h1 {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        p.subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        .status {
+            font-size: 15px;
+            font-weight: 500;
+            min-height: 22px;
+            margin-bottom: 20px;
+            opacity: 0.95;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2.5px solid rgba(255, 255, 255, 0.4);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .store-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 14px 20px;
+            border-radius: 14px;
+            background: #111827;
+            color: #fff;
+            text-decoration: none;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .store-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .store-text {
+            text-align: left;
+            line-height: 1.2;
+        }
+
+        .store-label {
+            font-size: 11px;
+            opacity: 0.85;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .store-name {
+            font-size: 18px;
+            font-weight: 600;
+            font-family: var(--font-heading);
+        }
+
+        .home-link {
+            display: inline-block;
+            margin-top: 24px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: underline;
+        }
+
+        .home-link:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="card">
+        <div class="logo">
+            <img src="images/icon.png" alt="PerkyLoop">
+            <span class="logo-text">PerkyLoop</span>
+        </div>
+
+        <h1>Get the PerkyLoop App</h1>
+        <p class="subtitle">Digital loyalty rewards from your favourite local shops.</p>
+
+        <div class="status" id="status"></div>
+
+        <div class="buttons" id="buttons">
+            <a href="https://apps.apple.com/nz/app/perkyloop/id6760283390" class="store-button" data-store="apple">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path
+                        d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
+                </svg>
+                <div class="store-text">
+                    <div class="store-label">Download on the</div>
+                    <div class="store-name">App Store</div>
+                </div>
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=nz.co.koungasolutions.perkyloop" class="store-button"
+                data-store="google">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path
+                        d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
+                </svg>
+                <div class="store-text">
+                    <div class="store-label">Get it on</div>
+                    <div class="store-name">Google Play</div>
+                </div>
+            </a>
+        </div>
+
+        <a href="index.html" class="home-link">Visit PerkyLoop.com</a>
+    </main>
+
+    <script>
+        (function () {
+            var APP_STORE_URL = 'https://apps.apple.com/nz/app/perkyloop/id6760283390';
+            var PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=nz.co.koungasolutions.perkyloop';
+
+            var ua = navigator.userAgent || navigator.vendor || window.opera || '';
+            var statusEl = document.getElementById('status');
+
+            // Detect iOS (including iPadOS which reports as Mac with touch support).
+            var isIOS = /iPad|iPhone|iPod/.test(ua) ||
+                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+            var isAndroid = /android/i.test(ua);
+
+            function showRedirecting(storeName) {
+                statusEl.innerHTML = '<span class="spinner"></span>Taking you to the ' + storeName + '\u2026';
+            }
+
+            if (isAndroid) {
+                showRedirecting('Google Play Store');
+                window.location.replace(PLAY_STORE_URL);
+            } else if (isIOS) {
+                showRedirecting('App Store');
+                window.location.replace(APP_STORE_URL);
+            } else {
+                statusEl.textContent = 'Choose your platform to download:';
+            }
+        })();
+    </script>
+</body>
+
+</html>
