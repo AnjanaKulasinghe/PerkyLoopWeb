@@ -23,7 +23,6 @@
         :root {
             --primary: #8b5cf6;
             --primary-dark: #7c3aed;
-            --gradient-sunset: linear-gradient(135deg, #f97316 0%, #ec4899 50%, #8b5cf6 100%);
             --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
@@ -34,77 +33,199 @@
             box-sizing: border-box;
         }
 
+        html,
+        body {
+            min-height: 100%;
+        }
+
         body {
             font-family: var(--font-family);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--gradient-sunset);
-            color: #fff;
-            padding: 24px;
-            text-align: center;
+            padding: 32px 20px;
+            color: #1f2937;
+            background: linear-gradient(135deg, #f97316 0%, #ec4899 45%, #8b5cf6 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 14s ease infinite;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Decorative floating blobs */
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: 0.45;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .blob-1 {
+            width: 340px;
+            height: 340px;
+            background: #fbbf24;
+            top: -80px;
+            left: -60px;
+            animation: float1 12s ease-in-out infinite;
+        }
+
+        .blob-2 {
+            width: 300px;
+            height: 300px;
+            background: #06b6d4;
+            bottom: -70px;
+            right: -50px;
+            animation: float2 15s ease-in-out infinite;
+        }
+
+        @keyframes float1 {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(30px, 40px);
+            }
+        }
+
+        @keyframes float2 {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(-40px, -30px);
+            }
         }
 
         .card {
+            position: relative;
+            z-index: 1;
             width: 100%;
-            max-width: 440px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 24px;
-            padding: 40px 32px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            max-width: 420px;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 32px;
+            padding: 36px 32px 32px;
+            box-shadow: 0 30px 70px rgba(76, 29, 149, 0.35);
+            text-align: center;
+            animation: rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
 
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Logo lockup — displayed at natural aspect ratio, no cropping */
         .logo {
+            display: block;
+            width: 148px;
+            height: auto;
+            margin: 0 auto 20px;
+        }
+
+        /* Phone mockup hero */
+        .phone {
+            display: block;
+            width: 190px;
+            height: auto;
+            margin: 0 auto 24px;
+            filter: drop-shadow(0 24px 40px rgba(76, 29, 149, 0.3));
+            animation: floatPhone 5s ease-in-out infinite;
+        }
+
+        @keyframes floatPhone {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .rating {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 24px;
+            gap: 8px;
+            background: #f3e8ff;
+            color: var(--primary-dark);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 999px;
+            margin-bottom: 18px;
         }
 
-        .logo img {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-        }
-
-        .logo-text {
-            font-family: var(--font-heading);
-            font-size: 26px;
-            font-weight: 700;
+        .rating .stars {
+            color: #f59e0b;
+            letter-spacing: 1px;
         }
 
         h1 {
             font-family: var(--font-heading);
-            font-size: 28px;
+            font-size: 27px;
             font-weight: 800;
-            margin-bottom: 12px;
+            line-height: 1.2;
+            color: #111827;
+            margin-bottom: 10px;
         }
 
         p.subtitle {
-            font-size: 16px;
-            opacity: 0.9;
-            margin-bottom: 28px;
-            line-height: 1.5;
+            font-size: 15.5px;
+            color: #6b7280;
+            line-height: 1.55;
+            margin-bottom: 24px;
+            padding: 0 4px;
         }
 
         .status {
-            font-size: 15px;
-            font-weight: 500;
-            min-height: 22px;
-            margin-bottom: 20px;
-            opacity: 0.95;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            min-height: 20px;
+            margin-bottom: 18px;
         }
 
         .spinner {
             display: inline-block;
-            width: 18px;
-            height: 18px;
-            border: 2.5px solid rgba(255, 255, 255, 0.4);
-            border-top-color: #fff;
+            width: 16px;
+            height: 16px;
+            border: 2.5px solid rgba(124, 58, 237, 0.25);
+            border-top-color: var(--primary-dark);
             border-radius: 50%;
             animation: spin 0.7s linear infinite;
             vertical-align: middle;
@@ -120,69 +241,129 @@
         .buttons {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 12px;
         }
 
         .store-button {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            padding: 14px 20px;
-            border-radius: 14px;
+            gap: 14px;
+            padding: 15px 22px;
+            border-radius: 16px;
             background: #111827;
             color: #fff;
             text-decoration: none;
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
         }
 
         .store-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 14px 28px rgba(17, 24, 39, 0.35);
+        }
+
+        .store-button:active {
+            transform: translateY(-1px);
+        }
+
+        .store-button svg {
+            flex-shrink: 0;
         }
 
         .store-text {
             text-align: left;
-            line-height: 1.2;
+            line-height: 1.15;
         }
 
         .store-label {
             font-size: 11px;
             opacity: 0.85;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.6px;
+            font-weight: 500;
         }
 
         .store-name {
-            font-size: 18px;
+            font-size: 19px;
             font-weight: 600;
             font-family: var(--font-heading);
         }
 
+        /* Highlight the recommended store for the detected device */
+        .store-button.highlight {
+            background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+            box-shadow: 0 12px 26px rgba(124, 58, 237, 0.45);
+        }
+
+        .store-button.dimmed {
+            background: #1f2937;
+            opacity: 0.55;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #9ca3af;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 20px 0 4px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e5e7eb;
+        }
+
         .home-link {
             display: inline-block;
-            margin-top: 24px;
+            margin-top: 18px;
             font-size: 14px;
-            color: rgba(255, 255, 255, 0.85);
-            text-decoration: underline;
+            font-weight: 500;
+            color: var(--primary-dark);
+            text-decoration: none;
         }
 
         .home-link:hover {
-            color: #fff;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 400px) {
+            .card {
+                padding: 30px 22px 26px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .phone {
+                width: 168px;
+            }
         }
     </style>
 </head>
 
 <body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
     <main class="card">
-        <div class="logo">
-            <img src="images/icon.png" alt="PerkyLoop">
-            <span class="logo-text">PerkyLoop</span>
+        <img src="images/icon.png" alt="PerkyLoop" class="logo">
+        <img src="images/front.png" alt="PerkyLoop app preview" class="phone" loading="lazy">
+
+        <div class="rating">
+            <span class="stars">★★★★★</span>
+            <span>Loved by Kiwi shoppers</span>
         </div>
 
         <h1>Get the PerkyLoop App</h1>
-        <p class="subtitle">Digital loyalty rewards from your favourite local shops.</p>
+        <p class="subtitle">Digital loyalty rewards from your favourite local shops — all in one place.</p>
 
         <div class="status" id="status"></div>
 
@@ -210,7 +391,7 @@
             </a>
         </div>
 
-        <a href="index.html" class="home-link">Visit PerkyLoop.com</a>
+        <a href="index.html" class="home-link">Visit PerkyLoop.com →</a>
     </main>
 
     <script>
@@ -220,6 +401,8 @@
 
             var ua = navigator.userAgent || navigator.vendor || window.opera || '';
             var statusEl = document.getElementById('status');
+            var appleBtn = document.querySelector('.store-button[data-store="apple"]');
+            var googleBtn = document.querySelector('.store-button[data-store="google"]');
 
             // Detect iOS (including iPadOS which reports as Mac with touch support).
             var isIOS = /iPad|iPhone|iPod/.test(ua) ||
@@ -231,9 +414,13 @@
             }
 
             if (isAndroid) {
+                googleBtn.classList.add('highlight');
+                appleBtn.classList.add('dimmed');
                 showRedirecting('Google Play Store');
                 window.location.replace(PLAY_STORE_URL);
             } else if (isIOS) {
+                appleBtn.classList.add('highlight');
+                googleBtn.classList.add('dimmed');
                 showRedirecting('App Store');
                 window.location.replace(APP_STORE_URL);
             } else {
